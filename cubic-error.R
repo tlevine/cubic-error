@@ -6,8 +6,13 @@ n.error <- function(n){
   sapply(x, function(i) { sum(abs( (y-i)^n )) })
 }
 
-
-plot(n.error(6) ~ x, col = 6, type = 'l', ylim = c(0, 10))
-for (m in 1:5) {
-  lines(n.error(1), col = m)
+center <- function(n) {
+  e <- n.error(n)
+  x[order(e)[1]]
 }
+
+d <- data.frame(
+  n = 1:100,
+  center = sapply(1:100, center)
+)
+plot(center ~ n, data = d, type = 'l')
