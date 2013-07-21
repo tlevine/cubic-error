@@ -17,6 +17,9 @@ d <- data.frame(
 )
 d$center = sapply(d$n, center)
 
-plot(center ~ n, data = d, type = 'l', ylim = range(x))
+plot(center ~ n, data = d, type = 'l', ylim = range(x),
+  main = 'Center points for higher-dimensional error metrics',
+  xlab = 'n', ylab = 'Center point (minimizes error metric)',
+  sub = 'Error metric = sum(abs((x_i - center) ^ n))')
 text(x = 1, y = median(y), labels = 'Median (n = 1)', pos = 4)
 text(x = 2, y = mean(y), labels = 'Mean (n = 2)', pos = 4)
