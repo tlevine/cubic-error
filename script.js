@@ -43,11 +43,10 @@
   var sample = viz.sample(viz.skewedDistribution, 30).sort().map(function(d) {
     return Math.round(d * 10) / 10
   })
-  viz.viz = d3.select("#viz")
-    .append('svg').attr('width', SIDE).attr('height', SIDE)
+  var defaultCenter = 0.5
 
-  // Selected center point
-  viz.viz
+  viz.viz = d3.select("#viz")
+    .append('svg').attr('width', SIDE).attr('height', SIDE * 2 / 3)
 
   viz.plot = function(center) {
     // The error distance from center
@@ -106,5 +105,33 @@
       .attr('width',  errorSide)
       .attr('fill-opacity', 0.03)
   }
+
+  // https://gist.github.com/enjalot/1378144
+  var drag = d3.behavior.drag()
+    .on("drag", function(d,i) {
+      window.e = d3.event
+      d = (Math.min(Math.max(0, d3.event.x - SIDE / 20), SIDE) / SIDE)
+      d = Math.round(d * 10) / 10
+      d3.select(this).attr("x", SIDE * d)
+      viz.plot(d)
+    })
+
+  // Selected center point
+  viz.viz.selectAll('rect.center')
+    .data([defaultCenter])
+    .enter()
+    .append('rect')
+    .attr('class', 'center')
+    .attr('x', function(d) { return SIDE * d - (SIDE / 20)})
+    .attr('y', 0)
+    .attr('height', SIDE)
+    .attr('width', SIDE / 10)
+    .attr('fill', 'red')
+    .attr('fill-opacity', 0.5)
+    .call(drag)
+//  .on('click', function(d){
+//    viz.plot(0.2)
+//  })
+  viz.plot(defaultCenter)
 
 })()
