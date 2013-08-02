@@ -65,10 +65,10 @@
     .attr('x2', function(d) {
       return SIDE * (d > center ? d : center)
     })
-    .attr('y1', viz.increment(SIDE / 30))
-    .attr('y2', viz.increment(SIDE / 30))
+    .attr('y1', viz.increment(SIDE / 50))
+    .attr('y2', viz.increment(SIDE / 50))
     .attr('stroke', 'red')
-    .attr('stroke-width', 20)
+    .attr('stroke-width', SIDE / 100)
     .attr('stroke-opacity', 0.5)
 
   // Square errors (corresponds to the mean)
