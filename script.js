@@ -39,7 +39,7 @@
   var centerBarWidth = 1/100
 
   viz.viz = d3.select("#viz")
-    .append('svg').attr('width', SIDE).attr('height', SIDE * 2 / 3)
+    .append('svg').attr('width', SIDE).attr('height', SIDE)
 
   viz.plot = function(center) {
     // The error distance from center
