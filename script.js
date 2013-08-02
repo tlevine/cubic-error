@@ -38,7 +38,7 @@
 
   var SIDE = 640
   var identity = function(d) { return d }
-  var center = 0.4
+  var center = 0.3
 
   viz.viz = d3.select("#viz")
     .append('svg').attr('width', SIDE).attr('height', SIDE)
