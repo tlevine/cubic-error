@@ -46,21 +46,6 @@
   viz.viz = d3.select("#viz")
     .append('svg').attr('width', SIDE).attr('height', SIDE)
 
-  // Ticks
-  /*
-  viz.viz
-    .selectAll('line')
-    .data(viz.ticks(10))
-    .enter()
-    .append('line')
-    .attr('x1', function(d) { return SIDE * d })
-    .attr('x2', function(d) { return SIDE * d })
-    .attr('y1', SIDE * 0.95)
-    .attr('y2', SIDE)
-    .attr('stroke-width', 4)
-    .attr('stroke', 'black')
-  */    
-
   // Selected center point
   viz.viz
 
