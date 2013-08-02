@@ -3,9 +3,9 @@
 
   viz.skewedDistribution = function() {
     if (Math.random() > 0.2) {
-      return 100 * Math.random()
+      return Math.random()
     } else {
-      return  30 * Math.random()
+      return 0.3 * Math.random()
     }
   }
 
@@ -17,10 +17,19 @@
     return _sample
   }
 
+  var identity = function(d) { return d}
+
+  var SIDE = 840
+
   viz.viz = d3.select("#viz")
+            .append('svg').attr('width', SIDE).attr('height', SIDE)
             .data(viz.sample(viz.skewedDistribution, 10))
             .enter()
-            .append('p')
-            .text(function(d){ return d})
-            .style('font-size', function(d) { return (d/10) + 'em' })
+            .append('rect')
+            .attr('x', identity)
+            .attr('y', 0)
+            .attr('height', function(d) { return SIDE * d })
+            .attr('width', function(d) { return SIDE * d })
+            .attr('fill', 'black')
+// <rect x="0" y="0" width="500" height="50"/>
 })()
