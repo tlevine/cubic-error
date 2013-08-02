@@ -17,19 +17,18 @@
     return _sample
   }
 
-  var identity = function(d) { return d}
-
   var SIDE = 840
+  var identity = function(d) { return d}
 
   viz.viz = d3.select("#viz")
             .append('svg').attr('width', SIDE).attr('height', SIDE)
+            .selectAll('rect')
             .data(viz.sample(viz.skewedDistribution, 10))
             .enter()
             .append('rect')
-            .attr('x', identity)
+            .attr('x', function(d) { return SIDE * d })
             .attr('y', 0)
-            .attr('height', function(d) { return SIDE * d })
-            .attr('width', function(d) { return SIDE * d })
-            .attr('fill', 'black')
+            .attr('height', 10)
+            .attr('width', 10)
 // <rect x="0" y="0" width="500" height="50"/>
 })()
