@@ -45,14 +45,24 @@
   var SIDE = 640
   var identity = function(d) { return d }
   var center = 0.3
-  var sample = viz.sample(viz.skewedDistribution, 10).sort()
+  var sample = viz.sample(viz.skewedDistribution, 30).sort().map(function(d) {
+    return Math.round(d * 10) / 10
+  })
   viz.viz = d3.select("#viz")
     .append('svg').attr('width', SIDE).attr('height', SIDE)
 
-
-
   // Point errors (corresponds to the mode)
-
+  viz.viz.selectAll('circle')
+    .data(sample)
+    .enter()
+    .append('circle')
+    .attr('cx', function(d) { return SIDE * d })
+    .attr('cy', viz.increment(SIDE / 50))
+    .attr('r', SIDE / 100)
+    .attr('fill', 'black')
+    .attr('fill-opacity', function(d) {
+      return d === center ? 0 : 1
+    })
 
   // Linear errors (corresponds to the median)
   viz.viz.selectAll('line')
@@ -69,7 +79,7 @@
     .attr('y2', viz.increment(SIDE / 50))
     .attr('stroke', 'red')
     .attr('stroke-width', SIDE / 100)
-    .attr('stroke-opacity', 0.5)
+    .attr('stroke-opacity', 0.2)
 
   // Square errors (corresponds to the mean)
   viz.viz.selectAll('rect')
@@ -82,7 +92,7 @@
     .attr('y', 0)
     .attr('height', viz.errorSide)
     .attr('width',  viz.errorSide)
-    .attr('fill-opacity', 0.1)
+    .attr('fill-opacity', 0.03)
 
   /*
   viz.viz.append('line')
