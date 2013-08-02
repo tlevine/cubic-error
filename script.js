@@ -58,7 +58,7 @@
     .append('circle')
     .attr('cx', function(d) { return SIDE * d })
     .attr('cy', viz.increment(SIDE / 50))
-    .attr('r', SIDE / 100)
+    .attr('r', SIDE / 150)
     .attr('fill', 'black')
     .attr('fill-opacity', function(d) {
       return d === center ? 0 : 1
@@ -77,9 +77,10 @@
     })
     .attr('y1', viz.increment(SIDE / 50))
     .attr('y2', viz.increment(SIDE / 50))
-    .attr('stroke', 'red')
-    .attr('stroke-width', SIDE / 100)
-    .attr('stroke-opacity', 0.2)
+    .attr('stroke', 'black')
+    .attr('stroke-dasharray', (SIDE/80) + ', ' + (SIDE /160))
+    .attr('stroke-width', SIDE / 400)
+    .attr('stroke-opacity', 0.4)
 
   // Square errors (corresponds to the mean)
   viz.viz.selectAll('rect')
