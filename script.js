@@ -107,7 +107,14 @@
       d = Math.round(d * 100) / 100
       d3.select(this).attr("x", SIDE * d)
       viz.plot(d)
+
+      // Move the bar to the front because I'm sloppily rewriting
+      // http://stackoverflow.com/questions/14167863/how-can-i-bring-a-circle-to-the-front-with-d3
+      d3.select(this).each(function() { this.parentNode.appendChild(this);})
     })
+
+  // Go
+  viz.plot(defaultCenter)
 
   // Selected center point
   viz.viz.selectAll('rect.center')
@@ -122,9 +129,5 @@
     .attr('fill', 'red')
     .attr('fill-opacity', 0.5)
     .call(drag)
-//  .on('click', function(d){
-//    viz.plot(0.2)
-//  })
-  viz.plot(defaultCenter)
 
 })()
