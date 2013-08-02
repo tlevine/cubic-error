@@ -22,6 +22,7 @@
     for (var i = 0; i < n; i++) {
       vec.push(i / n)
     }
+    return vec
   }
 
   viz.error = function(n) {
@@ -32,27 +33,39 @@
   }
 
   var SIDE = 640
-  var identity = function(d) { return d}
+  var identity = function(d) { return d }
+  var center = 0.4
 
   viz.viz = d3.select("#viz")
     .append('svg').attr('width', SIDE).attr('height', SIDE)
 
-  /*
   viz.viz.selectAll('rect')
     .data(viz.sample(viz.skewedDistribution, 10))
     .enter()
     .append('rect')
     .attr('x', function(d) { return SIDE * d })
     .attr('y', 0)
-    .attr('height', 10)
-    .attr('width', 10)
-  */
+    .attr('height', function(d) { return SIDE * viz.error(2)(d, center) })
+    .attr('width',  function(d) { return SIDE * viz.error(2)(d, center) })
 
+  /*
   viz.viz.append('line')
     .attr('x1', 0).attr('y1', SIDE)
-    .attr('x2', SIDE).attr('y1', SIDE)
+    .attr('x2', SIDE).attr('y2', SIDE)
     .attr('stroke-width', 4)
+    .attr('stroke', 'grey')
+  */
+
+  viz.viz
     .selectAll('line')
-    .data(viz.ticks(100))
+    .data(viz.ticks(10))
     .enter()
+    .append('line')
+    .attr('x1', function(d) { return SIDE * d })
+    .attr('x2', function(d) { return SIDE * d })
+    .attr('y1', SIDE * 0.95)
+    .attr('y2', SIDE)
+    .attr('stroke-width', 4)
+    .attr('stroke', 'grey')
+    
 })()
