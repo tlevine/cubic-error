@@ -17,14 +17,6 @@
     return _sample
   }
 
-  viz.ticks = function(n) {
-    var vec = []
-    for (var i = 0; i < n; i++) {
-      vec.push(i / n)
-    }
-    return vec
-  }
-
   viz.error = function(n) {
     // Polynomial-n error metric
     return function(a, b) {
