@@ -47,6 +47,7 @@
     .append('svg').attr('width', SIDE).attr('height', SIDE)
 
   // Ticks
+  /*
   viz.viz
     .selectAll('line')
     .data(viz.ticks(10))
@@ -58,7 +59,10 @@
     .attr('y2', SIDE)
     .attr('stroke-width', 4)
     .attr('stroke', 'black')
-    
+  */    
+
+  // Selected center point
+  viz.viz
 
   viz.plot = function(center) {
     // The error distance from center
@@ -66,15 +70,16 @@
       return SIDE * Math.abs(center - d)
     }
 
-    viz.viz.selectAll('circle').remove()
-    viz.viz.selectAll('line').remove()
-    viz.viz.selectAll('rect').remove()
+    viz.viz.selectAll('circle.d0').remove()
+    viz.viz.selectAll('line.d1').remove()
+    viz.viz.selectAll('rect.d2').remove()
 
     // Point errors (corresponds to the mode)
     viz.viz.selectAll('circle')
       .data(sample)
       .enter()
       .append('circle')
+      .attr('class', 'd0')
       .attr('cx', function(d) { return SIDE * d })
       .attr('cy', viz.increment(SIDE / 50))
       .attr('r', SIDE / 150)
@@ -88,6 +93,7 @@
       .data(sample)
       .enter()
       .append('line')
+      .attr('class', 'd1')
       .attr('x1', function(d) {
         return SIDE * (d < center ? d : center)
       })
@@ -106,6 +112,7 @@
       .data(sample)
       .enter()
       .append('rect')
+      .attr('class', 'd2')
       .attr('x', function(d) {
         return SIDE * (d < center ? d : center)
       })
