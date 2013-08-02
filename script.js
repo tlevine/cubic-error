@@ -79,10 +79,10 @@
       .append('line')
       .attr('class', 'd1')
       .attr('x1', function(d) {
-        return SIDE * (d < center ? d : center)
+        return SIDE * (d < center ? d : (center + 1/20))
       })
       .attr('x2', function(d) {
-        return SIDE * (d > center ? d : center)
+        return SIDE * (d > center ? d : (center - 1/20))
       })
       .attr('y1', viz.increment(SIDE / 50))
       .attr('y2', viz.increment(SIDE / 50))
