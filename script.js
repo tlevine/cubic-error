@@ -32,6 +32,10 @@
     }
   }
 
+  viz.errorSide = function(d) {
+    return SIDE * Math.abs(center - d)
+  }
+
   var SIDE = 640
   var identity = function(d) { return d }
   var center = 0.4
@@ -43,10 +47,13 @@
     .data(viz.sample(viz.skewedDistribution, 10))
     .enter()
     .append('rect')
-    .attr('x', function(d) { return SIDE * d })
+    .attr('x', function(d) {
+      return SIDE * (d < center ? d : center)
+    })
     .attr('y', 0)
-    .attr('height', function(d) { return SIDE * viz.error(2)(d, center) })
-    .attr('width',  function(d) { return SIDE * viz.error(2)(d, center) })
+    .attr('height', viz.errorSide)
+    .attr('width',  viz.errorSide)
+    .attr('fill-opacity', 0.1)
 
   /*
   viz.viz.append('line')
@@ -66,6 +73,6 @@
     .attr('y1', SIDE * 0.95)
     .attr('y2', SIDE)
     .attr('stroke-width', 4)
-    .attr('stroke', 'grey')
+    .attr('stroke', 'black')
     
 })()
