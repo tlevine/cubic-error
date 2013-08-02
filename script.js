@@ -36,15 +36,44 @@
     return SIDE * Math.abs(center - d)
   }
 
+  viz.increment = function(interval) {
+    return function(d, i) {
+      return i * interval
+    }
+  }
+
   var SIDE = 640
   var identity = function(d) { return d }
   var center = 0.3
-
+  var sample = viz.sample(viz.skewedDistribution, 10).sort()
   viz.viz = d3.select("#viz")
     .append('svg').attr('width', SIDE).attr('height', SIDE)
 
+
+
+  // Point errors (corresponds to the mode)
+
+
+  // Linear errors (corresponds to the median)
+  viz.viz.selectAll('line')
+    .data(sample)
+    .enter()
+    .append('line')
+    .attr('x1', function(d) {
+      return SIDE * (d < center ? d : center)
+    })
+    .attr('x2', function(d) {
+      return SIDE * (d > center ? d : center)
+    })
+    .attr('y1', viz.increment(SIDE / 30))
+    .attr('y2', viz.increment(SIDE / 30))
+    .attr('stroke', 'red')
+    .attr('stroke-width', 20)
+    .attr('stroke-opacity', 0.5)
+
+  // Square errors (corresponds to the mean)
   viz.viz.selectAll('rect')
-    .data(viz.sample(viz.skewedDistribution, 10))
+    .data(sample)
     .enter()
     .append('rect')
     .attr('x', function(d) {
@@ -63,6 +92,7 @@
     .attr('stroke', 'grey')
   */
 
+  // Ticks
   viz.viz
     .selectAll('line')
     .data(viz.ticks(10))
