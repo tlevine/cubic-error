@@ -33,7 +33,7 @@
   var SIDE = 640
   var identity = function(d) { return d }
   var sample = viz.sample(viz.skewedDistribution, 30).sort().map(function(d) {
-    return Math.round(d * 10) / 10
+    return Math.round(d * 100) / 100
   })
   var defaultCenter = 0.5
   var centerBarWidth = 1/100
@@ -104,7 +104,7 @@
     .on("drag", function(d,i) {
       window.e = d3.event
       d = (Math.min(Math.max(0, d3.event.x - SIDE * centerBarWidth), SIDE) / SIDE)
-      d = Math.round(d * 10) / 10
+      d = Math.round(d * 100) / 100
       d3.select(this).attr("x", SIDE * d)
       viz.plot(d)
     })
