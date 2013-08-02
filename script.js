@@ -36,6 +36,7 @@
     return Math.round(d * 10) / 10
   })
   var defaultCenter = 0.5
+  var centerBarWidth = 1/100
 
   viz.viz = d3.select("#viz")
     .append('svg').attr('width', SIDE).attr('height', SIDE * 2 / 3)
@@ -71,10 +72,10 @@
       .append('line')
       .attr('class', 'd1')
       .attr('x1', function(d) {
-        return SIDE * (d < center ? d : (center + 1/20))
+        return SIDE * (d < center ? d : (center + centerBarWidth))
       })
       .attr('x2', function(d) {
-        return SIDE * (d > center ? d : (center - 1/20))
+        return SIDE * (d > center ? d : (center + centerBarWidth))
       })
       .attr('y1', viz.increment(SIDE / 50))
       .attr('y2', viz.increment(SIDE / 50))
@@ -102,7 +103,7 @@
   var drag = d3.behavior.drag()
     .on("drag", function(d,i) {
       window.e = d3.event
-      d = (Math.min(Math.max(0, d3.event.x - SIDE / 20), SIDE) / SIDE)
+      d = (Math.min(Math.max(0, d3.event.x - SIDE * centerBarWidth), SIDE) / SIDE)
       d = Math.round(d * 10) / 10
       d3.select(this).attr("x", SIDE * d)
       viz.plot(d)
@@ -114,10 +115,10 @@
     .enter()
     .append('rect')
     .attr('class', 'center')
-    .attr('x', function(d) { return SIDE * d - (SIDE / 20)})
+    .attr('x', function(d) { return SIDE * (d - centerBarWidth)})
     .attr('y', 0)
     .attr('height', SIDE)
-    .attr('width', SIDE / 10)
+    .attr('width', SIDE * 2 * centerBarWidth)
     .attr('fill', 'red')
     .attr('fill-opacity', 0.5)
     .call(drag)
