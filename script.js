@@ -9,12 +9,19 @@
     }
   }
 
-  viz.sample = function(dist, n) {
+  viz.sample = function(distribution, n) {
     var _sample = []
     for (var i = 0; i < n; i++) {
-      _sample.push(dist())
+      _sample.push(distribution())
     }
     return _sample
+  }
+
+  viz.error = function(n) {
+    // Polynomial-n error metric
+    return function(a, b) {
+      return Math.pow(Math.abs(b - a), n)
+    }
   }
 
   var SIDE = 840
