@@ -47,9 +47,9 @@
     .attr('class', 'caption')
     .attr('style', 'display: block')
 
-  viz.caption.append('svg').attr('class', 'mode').attr('width', SIDE/3).attr('height', SIDE/3)
-  viz.caption.append('svg').attr('class', 'median').attr('width', SIDE/3).attr('height', SIDE/3)
-  viz.caption.append('svg').attr('class', 'mean').attr('width', SIDE/3).attr('height', SIDE/3)
+  viz.mode = viz.caption.append('svg').attr('class', 'mode').attr('width', SIDE/3).attr('height', SIDE/3)
+  viz.median = viz.caption.append('svg').attr('class', 'median').attr('width', SIDE/3).attr('height', SIDE/3)
+  viz.mean = viz.caption.append('svg').attr('class', 'mean').attr('width', SIDE/3).attr('height', SIDE/3)
 
   viz.plot = function(center) {
     // The error distance from center
@@ -109,6 +109,17 @@
       .attr('height', errorSide)
       .attr('width',  errorSide)
       .attr('fill-opacity', 0.03)
+
+    viz.median.selectAll('line')
+      .data(sumOfLines(sample))
+      .enter()
+      .append('line')
+      .attr('x1', 0)
+      .attr('x2', identity)
+      .attr('y1', SIDE/6)
+      .attr('y2', SIDE/6)
+      .attr('stroke', 'black')
+      .attr('stroke-width', SIDE/90)
 
 //  viz.caption.select('
   }
