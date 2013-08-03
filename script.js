@@ -2,10 +2,13 @@
   window.viz = {}
 
   viz.skewedDistribution = function() {
-    if (Math.random() > 0.2) {
-      return Math.random()
+    var x = Math.random()
+    if (x > 0.8) {
+      return x
+    } else if (x > 0.3 && x < 0.4) {
+      return 0.9
     } else {
-      return 0.3 * Math.random()
+      return Math.pow(x, 0.5)
     }
   }
 
@@ -47,7 +50,7 @@
 
   var SIDE = 640
   var identity = function(d) { return d }
-  var sample = viz.sample(viz.skewedDistribution, 50).sort().map(function(d) {
+  var sample = viz.sample(viz.skewedDistribution, 75).sort().map(function(d) {
     return Math.round(d * 50) / 50
   })
   var defaultCenter = 0.5
@@ -104,8 +107,8 @@
       .append('circle')
       .attr('class', 'd0')
       .attr('cx', function(d) { return SIDE * d })
-      .attr('cy', viz.increment(SIDE / 50))
-      .attr('r', SIDE / 150)
+      .attr('cy', viz.increment(SIDE / 75))
+      .attr('r', SIDE / 250)
       .attr('fill', 'black')
       .attr('fill-opacity', function(d) {
         return d === center ? 0 : 1
@@ -123,8 +126,8 @@
       .attr('x2', function(d) {
         return SIDE * (d > center ? d : (center + centerBarWidth))
       })
-      .attr('y1', viz.increment(SIDE / 50))
-      .attr('y2', viz.increment(SIDE / 50))
+      .attr('y1', viz.increment(SIDE / 75))
+      .attr('y2', viz.increment(SIDE / 75))
       .attr('stroke', 'black')
       .attr('stroke-dasharray', (SIDE/80) + ', ' + (SIDE /160))
       .attr('stroke-width', SIDE / 400)
@@ -157,9 +160,9 @@
         return (SIDE/3) * ((i%10) * (1/11) + 1/11)
       })
       .attr('cy', function(d, i) {
-        return (SIDE/3) * (1 - (Math.floor(i/ 10) * (1/11) + 1/11)) + (SIDE/3/11) - (SIDE/150)
+        return (SIDE/3) * (1 - (Math.floor(i/ 10) * (1/11) + 1/11)) + (SIDE/3/11) - (SIDE/250)
       })
-      .attr('r', SIDE / 150)
+      .attr('r', SIDE / 250)
       .attr('fill', 'black')
       .attr('fill-opacity', function(d) {
         return d === center ? 0 : 1
@@ -194,8 +197,8 @@
     .on("drag", function(d,i) {
       window.e = d3.event
       d = (Math.min(Math.max(0, d3.event.x - SIDE * centerBarWidth), SIDE) / SIDE)
-      d = Math.round(d * 100) / 100
-      d = Math.min(d, 19 / 20) // Prevent the slider from falling off the screen
+      d = Math.round(d * 50) / 50
+      d = Math.min(d, 74/75) // Prevent the slider from falling off the screen
       d3.select(this).attr("x", SIDE * d)
       viz.plot(d)
 
