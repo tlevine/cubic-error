@@ -40,6 +40,16 @@
 
   viz.viz = d3.select("#viz")
     .append('svg').attr('width', SIDE).attr('height', SIDE)
+    .attr('style', 'display: block')
+
+  viz.caption = d3.select("#viz")
+    .append('div')
+    .attr('class', 'caption')
+    .attr('style', 'display: block')
+
+  viz.caption.append('svg').attr('class', 'mode').attr('width', SIDE/3).attr('height', SIDE/3)
+  viz.caption.append('svg').attr('class', 'median').attr('width', SIDE/3).attr('height', SIDE/3)
+  viz.caption.append('svg').attr('class', 'mean').attr('width', SIDE/3).attr('height', SIDE/3)
 
   viz.plot = function(center) {
     // The error distance from center
@@ -99,6 +109,8 @@
       .attr('height', errorSide)
       .attr('width',  errorSide)
       .attr('fill-opacity', 0.03)
+
+//  viz.caption.select('
   }
 
   // https://gist.github.com/enjalot/1378144
