@@ -195,6 +195,7 @@
       window.e = d3.event
       d = (Math.min(Math.max(0, d3.event.x - SIDE * centerBarWidth), SIDE) / SIDE)
       d = Math.round(d * 100) / 100
+      d = Math.min(d, 19 / 20) // Prevent the slider from falling off the screen
       d3.select(this).attr("x", SIDE * d)
       viz.plot(d)
 
