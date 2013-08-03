@@ -26,7 +26,7 @@
 
   var SIDE = 640
   var identity = function(d) { return d }
-  var sample = viz.sample(viz.skewedDistribution, 30).sort().map(function(d) {
+  var sample = viz.sample(viz.skewedDistribution, 50).sort().map(function(d) {
     return Math.round(d * 100) / 100
   })
   var defaultCenter = 0.5
@@ -94,7 +94,7 @@
         return SIDE * (d < center ? d : center)
       })
       .attr('y', function(d) {
-        return SIDE * (1 - d)
+        return SIDE - errorSide(d)
       })
       .attr('height', errorSide)
       .attr('width',  errorSide)
@@ -125,7 +125,7 @@
     .append('rect')
     .attr('class', 'center')
     .attr('x', function(d) { return SIDE * (d - centerBarWidth)})
-    .attr('y', function(d) { return SIDE * (1 - d)})
+    .attr('y', 0)
     .attr('height', SIDE)
     .attr('width', SIDE * 2 * centerBarWidth)
     .attr('fill', 'red')
