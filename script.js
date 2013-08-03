@@ -69,8 +69,19 @@
     .attr('style', 'display: block')
 
   viz.mode = viz.caption.append('svg').attr('class', 'mode').attr('width', SIDE/3).attr('height', SIDE * 4/9)
+  viz.mode.append('text').attr('x', SIDE/6).attr('y', SIDE * 3.5/9)
+    .attr('style', 'text-anchor: middle;')
+    .text('Sum of points')
+
   viz.median = viz.caption.append('svg').attr('class', 'median').attr('width', SIDE/3).attr('height', SIDE * 4/9)
+  viz.median.append('text').attr('x', SIDE/6).attr('y', SIDE * 3.5/9)
+    .attr('style', 'text-anchor: middle;')
+    .text('Sum of lines')
+
   viz.mean = viz.caption.append('svg').attr('class', 'mean').attr('width', SIDE/3).attr('height', SIDE * 4/9)
+  viz.mean.append('text').attr('x', SIDE/6).attr('y', SIDE * 3.5/9)
+    .attr('style', 'text-anchor: middle;')
+    .text('Sum of squares')
 
   viz.plot = function(center) {
     // The error distance from center
