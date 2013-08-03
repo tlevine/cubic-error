@@ -24,6 +24,19 @@
     }
   }
 
+  viz.sumOfShapes = function(n, _sample, centerPoint) {
+    return _sample.map(function(x) { return viz.error(n)(centerPoint, x)})
+      .reduce(function(a, b) { return a + b })
+  }
+
+  viz.scaledSumOfShapes = function(n, _sample, centerPoint) {
+    var rawSumOfShapes = viz.sumOfShapes(n, _sample, centerPoint)
+    var extremeLeftSumOfShapes = viz.sumOfShapes(n, _sample, _sample[0])
+    var extremeRightSumOfShapes = viz.sumOfShapes(n, _sample, _sample[_sample.length - 1])
+    var extremeSumOfShapes = Math.max(extremeLeftSumOfShapes, extremeRightSumOfShapes)
+    return rawSumOfShapes / extremeSumOfShapes
+  }
+
   var SIDE = 640
   var identity = function(d) { return d }
   var sample = viz.sample(viz.skewedDistribution, 50).sort().map(function(d) {
@@ -60,6 +73,7 @@
     viz.viz.selectAll('circle.d0').remove()
     viz.viz.selectAll('line.d1').remove()
     viz.viz.selectAll('rect.d2').remove()
+    viz.median.selectAll('line').remove()
 
     // Point errors (corresponds to the mode)
     viz.viz.selectAll('circle')
@@ -111,13 +125,13 @@
       .attr('fill-opacity', 0.03)
 
     viz.median.selectAll('line')
-      .data(sumOfLines(sample))
+      .data([(SIDE / 3) * viz.scaledSumOfShapes(1, sample, center)])
       .enter()
       .append('line')
-      .attr('x1', 0)
-      .attr('x2', identity)
-      .attr('y1', SIDE/6)
-      .attr('y2', SIDE/6)
+      .attr('y1', SIDE/3)
+      .attr('y2', function(d) { return (SIDE/3)-d})
+      .attr('x1', SIDE/6)
+      .attr('x2', SIDE/6)
       .attr('stroke', 'black')
       .attr('stroke-width', SIDE/90)
 
