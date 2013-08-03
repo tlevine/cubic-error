@@ -143,10 +143,10 @@
       .append('circle')
       .attr('class', 'd0')
       .attr('cx', function(d, i) {
-        return ((1 + (i % 11)) * ((SIDE/3)/12))
+        return (SIDE/3) * ((i%10) * (1/11) + 1/11)
       })
       .attr('cy', function(d, i) {
-        return (SIDE/3) - (1 + Math.ceil(i/11)) * ((SIDE/3)/12)
+        return (SIDE/3) * (Math.floor(i/ 10) * (1/11) + 1/11)
       })
       .attr('r', SIDE / 150)
       .attr('fill', 'black')
