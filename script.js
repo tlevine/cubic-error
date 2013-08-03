@@ -68,9 +68,9 @@
     .attr('class', 'caption')
     .attr('style', 'display: block')
 
-  viz.mode = viz.caption.append('svg').attr('class', 'mode').attr('width', SIDE/3).attr('height', SIDE/3)
-  viz.median = viz.caption.append('svg').attr('class', 'median').attr('width', SIDE/3).attr('height', SIDE/3)
-  viz.mean = viz.caption.append('svg').attr('class', 'mean').attr('width', SIDE/3).attr('height', SIDE/3)
+  viz.mode = viz.caption.append('svg').attr('class', 'mode').attr('width', SIDE/3).attr('height', SIDE * 4/9)
+  viz.median = viz.caption.append('svg').attr('class', 'median').attr('width', SIDE/3).attr('height', SIDE * 4/9)
+  viz.mean = viz.caption.append('svg').attr('class', 'mean').attr('width', SIDE/3).attr('height', SIDE * 4/9)
 
   viz.plot = function(center) {
     // The error distance from center
@@ -146,7 +146,7 @@
         return (SIDE/3) * ((i%10) * (1/11) + 1/11)
       })
       .attr('cy', function(d, i) {
-        return (SIDE/3) * (1 - (Math.floor(i/ 10) * (1/11) + 1/11))
+        return (SIDE/3) * (1 - (Math.floor(i/ 10) * (1/11) + 1/11)) + (SIDE/3/11) - (SIDE/150)
       })
       .attr('r', SIDE / 150)
       .attr('fill', 'black')
@@ -173,8 +173,7 @@
       .attr('x', 0)
       .attr('height', identity)
       .attr('width', identity)
-      .attr('stroke', 'black')
-      .attr('stroke-width', SIDE/90)
+      .attr('fill', 'black')
 
 //  viz.caption.select('
   }
