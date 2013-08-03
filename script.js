@@ -24,12 +24,6 @@
     }
   }
 
-  viz.increment = function(interval) {
-    return function(d, i) {
-      return i * interval
-    }
-  }
-
   var SIDE = 640
   var identity = function(d) { return d }
   var sample = viz.sample(viz.skewedDistribution, 30).sort().map(function(d) {
@@ -37,6 +31,12 @@
   })
   var defaultCenter = 0.5
   var centerBarWidth = 1/100
+
+  viz.increment = function(interval) {
+    return function(d, i) {
+      return SIDE - i * interval
+    }
+  }
 
   viz.viz = d3.select("#viz")
     .append('svg').attr('width', SIDE).attr('height', SIDE)
@@ -93,7 +93,9 @@
       .attr('x', function(d) {
         return SIDE * (d < center ? d : center)
       })
-      .attr('y', 0)
+      .attr('y', function(d) {
+        return SIDE * (1 - d)
+      })
       .attr('height', errorSide)
       .attr('width',  errorSide)
       .attr('fill-opacity', 0.03)
@@ -123,7 +125,7 @@
     .append('rect')
     .attr('class', 'center')
     .attr('x', function(d) { return SIDE * (d - centerBarWidth)})
-    .attr('y', 0)
+    .attr('y', function(d) { return SIDE * (1 - d)})
     .attr('height', SIDE)
     .attr('width', SIDE * 2 * centerBarWidth)
     .attr('fill', 'red')
