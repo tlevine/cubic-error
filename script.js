@@ -184,7 +184,7 @@
       .enter()
       .append('rect')
       .attr('y', function(d) {return SIDE/3 - d})
-      .attr('x', 0)
+      .attr('x', function(d) {return ((SIDE/3) - d) /2})
       .attr('height', identity)
       .attr('width', identity)
       .attr('fill', 'black')
