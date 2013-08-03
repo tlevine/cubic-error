@@ -199,6 +199,7 @@
       d = (Math.min(Math.max(0, d3.event.x - SIDE * centerBarWidth), SIDE) / SIDE)
       d = Math.round(d * 50) / 50
       d = Math.min(d, 74/75) // Prevent the slider from falling off the screen
+      viz.viz.selectAll('#drag-me').remove()
       d3.select(this).attr("x", SIDE * d)
       viz.plot(d)
 
@@ -223,5 +224,11 @@
     .attr('fill', 'red')
     .attr('fill-opacity', 0.5)
     .call(drag)
+
+  viz.viz.append('text')
+    .attr('x', SIDE/2).attr('y', SIDE/8)
+    .attr('style', 'text-anchor: end;')
+    .attr('id', 'drag-me')
+    .text('Drag the red bar -->')
 
 })()
