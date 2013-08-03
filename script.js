@@ -48,7 +48,7 @@
   var SIDE = 640
   var identity = function(d) { return d }
   var sample = viz.sample(viz.skewedDistribution, 50).sort().map(function(d) {
-    return Math.round(d * 100) / 100
+    return Math.round(d * 50) / 50
   })
   var defaultCenter = 0.5
   var centerBarWidth = 1/100
@@ -162,6 +162,17 @@
       .attr('y2', function(d) { return (SIDE/3)-d})
       .attr('x1', SIDE/6)
       .attr('x2', SIDE/6)
+      .attr('stroke', 'black')
+      .attr('stroke-width', SIDE/90)
+
+    viz.mean.selectAll('rect')
+      .data([(SIDE / 3) * viz.scaledSumOfShapes(2, sample, center)])
+      .enter()
+      .append('rect')
+      .attr('y', function(d) {return SIDE/3 - d})
+      .attr('x', 0)
+      .attr('height', identity)
+      .attr('width', identity)
       .attr('stroke', 'black')
       .attr('stroke-width', SIDE/90)
 
