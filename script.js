@@ -17,10 +17,18 @@
     return _sample
   }
 
+  viz.pow= function(a, b) {
+    if (a === 0 && b === 0) {
+      return 0
+    } else {
+      return Math.pow(a, b)
+    }
+  }
+
   viz.error = function(n) {
     // Polynomial-n error metric
     return function(a, b) {
-      return Math.pow(Math.abs(b - a), n)
+      return viz.pow(Math.abs(b - a), n)
     }
   }
 
@@ -73,7 +81,10 @@
     viz.viz.selectAll('circle.d0').remove()
     viz.viz.selectAll('line.d1').remove()
     viz.viz.selectAll('rect.d2').remove()
+
+    viz.mode.selectAll('circle').remove()
     viz.median.selectAll('line').remove()
+    viz.mean.selectAll('rect').remove()
 
     // Point errors (corresponds to the mode)
     viz.viz.selectAll('circle')
@@ -123,6 +134,25 @@
       .attr('height', errorSide)
       .attr('width',  errorSide)
       .attr('fill-opacity', 0.03)
+
+    viz.modeData = sample.map(function(x) { return viz.pow(x - center, 0) }).filter(function(x) { return x === 1})
+
+    viz.mode.selectAll('circle')
+      .data(viz.modeData)
+      .enter()
+      .append('circle')
+      .attr('class', 'd0')
+      .attr('cx', function(d, i) {
+        return ((1 + (i % 11)) * ((SIDE/3)/12))
+      })
+      .attr('cy', function(d, i) {
+        return (SIDE/3) - (1 + Math.ceil(i/11)) * ((SIDE/3)/12)
+      })
+      .attr('r', SIDE / 150)
+      .attr('fill', 'black')
+      .attr('fill-opacity', function(d) {
+        return d === center ? 0 : 1
+      })
 
     viz.median.selectAll('line')
       .data([(SIDE / 3) * viz.scaledSumOfShapes(1, sample, center)])
