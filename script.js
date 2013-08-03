@@ -146,7 +146,7 @@
         return (SIDE/3) * ((i%10) * (1/11) + 1/11)
       })
       .attr('cy', function(d, i) {
-        return (SIDE/3) * (Math.floor(i/ 10) * (1/11) + 1/11)
+        return (SIDE/3) * (1 - (Math.floor(i/ 10) * (1/11) + 1/11))
       })
       .attr('r', SIDE / 150)
       .attr('fill', 'black')
